@@ -3,6 +3,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.linear_model import Ridge
+from sklearn.metrics import mean_squared_error
+
 
 # Import libraries for graphs
 from mpl_toolkits import mplot3d
@@ -25,6 +27,10 @@ clf=MultiOutputRegressor(Ridge(random_state=123)).fit(X_train, y_train)
 Y_pred = clf.predict(X_test) #Values of test set
 print(clf.score(X_train,y_train))
 
+#MSE
+mse = mean_squared_error(y_test,Y_pred)
+print("Error cuadratico medio",mse)
+
 # Creating dataset predition test
 z = Y_pred[:,0]
 x = Y_pred[:,1]
@@ -44,7 +50,11 @@ ax = plt.axes(projection ="3d")
 ax.scatter3D(x, y, z, color = "blue", alpha=0.1)
 
 ax.scatter3D(x1, y1, z1, color = "red")
-plt.title("Results predict Y and Test set")
+ax.set_xlabel("y1")
+ax.set_ylabel("y2")
+ax.set_zlabel("y3")
+plt.title("Results predict and Test set")
+
 
  
 # show plot
